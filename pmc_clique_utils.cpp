@@ -161,7 +161,7 @@ void pmc_graph::reduce_graph(
     // compute k-cores and share bounds: ensure operation completed by single process
     #pragma omp single nowait
     {
-#ifndef DEBUG
+#ifndef NDEBUG
         cout << ">>> [pmc: thread " << omp_get_thread_num() + 1 << "]" <<endl;
 #endif
         G.induced_cores_ordering(vs,es,pruned);
