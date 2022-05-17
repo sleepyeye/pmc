@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 project(pmc VERSION 1.0.0)
 
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(PMC_SOURCE_FILES
         ${CMAKE_CURRENT_SOURCE_DIR}/pmc_heu.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/pmc_maxclique.cpp
@@ -12,7 +14,11 @@ set(PMC_SOURCE_FILES
         ${CMAKE_CURRENT_SOURCE_DIR}/pmc_clique_utils.cpp
         )
 
+option(PMC_VERBOSE "Make PMC verbose" ON)
+option(PMC_WITH_OPENMP "Build with OpenMP" OFF)
+
 add_library(pmc SHARED ${PMC_SOURCE_FILES})
+add_executable(pmc_main pmc_driver.cpp)
 
 target_include_directories(pmc PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>
@@ -20,12 +26,19 @@ target_include_directories(pmc PUBLIC
         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
         )
 
-add_executable(pmc_main pmc_driver.cpp)
+if(PMC_VERBOSE)
+        target_compile_definitions(pmc PUBLIC PMC_VERBOSE)
+endif()
+
+if(PMC_WITH_OPENMP)
+        find_package(OpenMP REQUIRED)
+        target_link_libraries(pmc OpenMP::OpenMP_CXX)
+        target_link_libraries(pmc_main OpenMP::OpenMP_CXX)
+endif()
 target_link_libraries(pmc_main pmc)
 
-find_package(OpenMP REQUIRED)
-target_link_libraries(pmc OpenMP::OpenMP_CXX)
-target_link_libraries(pmc_main OpenMP::OpenMP_CXX)
+
+
 
 # Installation
 include(GNUInstallDirs)

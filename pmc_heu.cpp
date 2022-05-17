@@ -97,7 +97,9 @@ int pmc_heu::search_bounds(pmc_graph& G,
                             C.push_back(v);
                             C_max = C;
                             if (mc >= ub) found_ub = true;
+#if !defined(NDEBUG) || defined(PMC_VERBOSE)
                             print_info(C_max);
+#endif
                         }
                     }
                 }
@@ -105,7 +107,9 @@ int pmc_heu::search_bounds(pmc_graph& G,
             C = X; P = T;
         }
     }
+#if !defined(NDEBUG) || defined(PMC_VERBOSE)
     cout << "[pmc heuristic]\t mc = " << mc <<endl;
+#endif
     return mc;
 }
 
@@ -160,7 +164,9 @@ int pmc_heu::search_cores(pmc_graph& G, vector<int>& C_max, int lb) {
                             mc = mc_cur;
                             C.push_back(v);
                             C_max = C;
+#if !defined(NDEBUG) || defined(PMC_VERBOSE)
                             print_info(C_max);
+#endif
                         }
                     }
                 }
@@ -169,7 +175,9 @@ int pmc_heu::search_cores(pmc_graph& G, vector<int>& C_max, int lb) {
         C = X; P = T;
     }
     C.clear();
+#if !defined(NDEBUG) || defined(PMC_VERBOSE)
     cout << "[search_cores]\t mc = " << mc <<endl;
+#endif
     return mc;
 }
 
@@ -184,4 +192,3 @@ inline void pmc_heu::print_info(vector<int> C_max) {
     cout << "]   current max clique = " << C_max.size();
     cout << ",  time = " << get_time() - sec << " sec" <<endl;
 }
-
