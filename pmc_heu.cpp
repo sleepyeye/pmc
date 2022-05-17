@@ -97,7 +97,7 @@ int pmc_heu::search_bounds(pmc_graph& G,
                             C.push_back(v);
                             C_max = C;
                             if (mc >= ub) found_ub = true;
-#ifndef NDEBUG
+#if !defined(NDEBUG) || defined(PMC_VERBOSE)
                             print_info(C_max);
 #endif
                         }
@@ -107,7 +107,7 @@ int pmc_heu::search_bounds(pmc_graph& G,
             C = X; P = T;
         }
     }
-#ifndef NDEBUG
+#if !defined(NDEBUG) || defined(PMC_VERBOSE)
     cout << "[pmc heuristic]\t mc = " << mc <<endl;
 #endif
     return mc;
@@ -164,7 +164,7 @@ int pmc_heu::search_cores(pmc_graph& G, vector<int>& C_max, int lb) {
                             mc = mc_cur;
                             C.push_back(v);
                             C_max = C;
-#ifndef NDEBUG
+#if !defined(NDEBUG) || defined(PMC_VERBOSE)
                             print_info(C_max);
 #endif
                         }
@@ -175,7 +175,7 @@ int pmc_heu::search_cores(pmc_graph& G, vector<int>& C_max, int lb) {
         C = X; P = T;
     }
     C.clear();
-#ifndef NDEBUG
+#if !defined(NDEBUG) || defined(PMC_VERBOSE)
     cout << "[search_cores]\t mc = " << mc <<endl;
 #endif
     return mc;

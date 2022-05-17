@@ -135,7 +135,7 @@ void pmc_graph::read_edges(const string& filename) {
     }
     vert_list.clear();
     vertex_degrees();
-#ifndef NDEBUG
+#if !defined(NDEBUG) || defined(PMC_VERBOSE)
     cout << "self-loops: " << self_edges <<endl;
 #endif
 }
@@ -284,7 +284,7 @@ void pmc_graph::create_adj() {
         for (long long j = vertices[i]; j < vertices[i + 1]; j++ )
             adj[i][edges[j]] = true;
     }
-#ifndef NDEBUG
+#if !defined(NDEBUG) || defined(PMC_VERBOSE)
     cout << "Created adjacency matrix in " << get_time() - sec << " seconds" <<endl;
 #endif
 }
@@ -298,7 +298,7 @@ void pmc_graph::sum_vertex_degrees() {
         degree[v] = vertices[v+1] - vertices[v];
         sum += (degree[v] * degree[v]-1) / 2;
     }
-#ifndef NDEBUG
+#if !defined(NDEBUG) || defined(PMC_VERBOSE)
     cout << "sum of degrees: " << sum <<endl;
 #endif
 }
@@ -361,7 +361,7 @@ void pmc_graph::update_degrees(int* &pruned, int& mc) {
         }
     }
     avg_degree = (double)edges.size() / p;
-#ifndef NDEBUG
+#if !defined(NDEBUG) || defined(PMC_VERBOSE)
     cout << ", pruned: " << p << endl;
 #endif
 }
@@ -435,7 +435,7 @@ void pmc_graph::update_kcores(int* &pruned) {
         }
         else kcore[v] = 0;
     }
-#ifndef NDEBUG
+#if !defined(NDEBUG) || defined(PMC_VERBOSE)
     cout << "[pmc: updated cores]  K: " << max_core <<endl;
 #endif
 
@@ -618,7 +618,7 @@ void pmc_graph::degree_bucket_sort(bool desc) {
         }
     }
 
-#ifndef NDEBUG
+#if !defined(NDEBUG) || defined(PMC_VERBOSE)
     cout << "[pmc: sorting neighbors]  |E| = " << edges.size();
     cout << ", |E_sorted| = " << tmp_edges.size() <<endl;
 #endif

@@ -31,7 +31,7 @@ int pmc_graph::initial_pruning(pmc_graph& G, int* &pruned, int lb) {
     }
 
     double sec = get_time();
-#ifndef NDEBUG
+#if !defined(NDEBUG) || defined(PMC_VERBOSE)
     cout << "[pmc: initial k-core pruning]  before pruning: |V| = " << G.num_vertices();
     cout << ", |E| = " << G.num_edges() <<endl;
     G.reduce_graph(pruned);
@@ -63,7 +63,7 @@ int pmc_graph::initial_pruning(pmc_graph& G, int* &pruned, int lb, vector<vector
     }
 
     double sec = get_time();
-#ifndef NDEBUG
+#if !defined(NDEBUG) || defined(PMC_VERBOSE)
     cout << "[pmc: initial k-core pruning]  before pruning: |V| = " << G.num_vertices() << ", |E| = " << G.num_edges() <<endl;
     G.reduce_graph(pruned);
     cout << "[pmc: initial k-core pruning]  after pruning:  |V| = " << G.num_vertices() - lb_idx << ", |E| = " << G.num_edges() <<endl;
@@ -161,7 +161,7 @@ void pmc_graph::reduce_graph(
     // compute k-cores and share bounds: ensure operation completed by single process
     #pragma omp single nowait
     {
-#ifndef NDEBUG
+#if !defined(NDEBUG) || defined(PMC_VERBOSE)
         cout << ">>> [pmc: thread " << omp_get_thread_num() + 1 << "]" <<endl;
 #endif
         G.induced_cores_ordering(vs,es,pruned);

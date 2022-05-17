@@ -122,7 +122,7 @@ void pmc_maxclique::branch(
                         print_mc_info(C,sec);
                         if (mc >= param_ub) {
                             not_reached_ub = false;
-#ifndef NDEBUG
+#if !defined(NDEBUG) || defined(PMC_VERBOSE)
                             cout << "[pmc: upper bound reached]  omega = " << mc <<endl;
 #endif
                         }
@@ -251,7 +251,7 @@ void pmc_maxclique::branch_dense(
                         print_mc_info(C,sec);
                         if (mc >= param_ub) {
                             not_reached_ub = false;
-#ifndef NDEBUG
+#if !defined(NDEBUG) || defined(PMC_VERBOSE)
                             cout << "[pmc: upper bound reached]  omega = " << mc <<endl;
 #endif
                         }
