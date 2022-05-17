@@ -105,7 +105,9 @@ int pmc_heu::search_bounds(pmc_graph& G,
             C = X; P = T;
         }
     }
+#ifndef NDEBUG
     cout << "[pmc heuristic]\t mc = " << mc <<endl;
+#endif
     return mc;
 }
 
@@ -169,7 +171,9 @@ int pmc_heu::search_cores(pmc_graph& G, vector<int>& C_max, int lb) {
         C = X; P = T;
     }
     C.clear();
+#ifndef NDEBUG
     cout << "[search_cores]\t mc = " << mc <<endl;
+#endif
     return mc;
 }
 
