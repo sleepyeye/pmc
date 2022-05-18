@@ -184,18 +184,21 @@ void pmc_graph::print_break() {
 
 bool pmc_graph::time_left(vector<int> &C_max, double sec, double time_limit, bool &time_expired_msg) {
     if ((get_time() - sec) > time_limit) {
+#if !defined(NDEBUG) || defined(PMC_VERBOSE)
         if (time_expired_msg) {
             cout << "\n### Time limit expired, terminating search. ###" <<endl;
             cout << "Size: " << C_max.size() <<endl;
             print_max_clique(C_max);
             time_expired_msg = false;
         }
+#endif
         return false;
     }
     return true;
 }
 
 void pmc_graph::graph_stats(pmc_graph& G, int& mc, int id, double &sec) {
+#if !defined(NDEBUG) || defined(PMC_VERBOSE)
     cout << "[pmc: bounds updated - thread " << omp_get_thread_num() + 1 << "]  ";
     cout << "time = " << get_time() - sec << " sec, ";
     cout << "|V| = " << (G.num_vertices() - id);
@@ -208,4 +211,5 @@ void pmc_graph::graph_stats(pmc_graph& G, int& mc, int id, double &sec) {
     cout << ", d_max = " << G.get_max_degree();
     cout << ", k_max = " << G.get_max_core();
     cout <<endl;
+#endif
 }

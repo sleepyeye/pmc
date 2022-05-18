@@ -75,7 +75,9 @@ int pmc_maxclique::search(pmc_graph& G, vector<int>& sol) {
 
     sol.resize(mc);
     for (int i = 0; i < C_max.size(); i++)  sol[i] = C_max[i];
+#if !defined(NDEBUG) || defined(PMC_VERBOSE)
     G.print_break();
+#endif
     return sol.size();
 }
 
@@ -119,7 +121,9 @@ void pmc_maxclique::branch(
                         // ensure updated max is flushed
                         mc = C.size();
                         C_max = C;
+#if !defined(NDEBUG) || defined(PMC_VERBOSE)
                         print_mc_info(C,sec);
+#endif
                         if (mc >= param_ub) {
                             not_reached_ub = false;
 #if !defined(NDEBUG) || defined(PMC_VERBOSE)
@@ -209,7 +213,9 @@ int pmc_maxclique::search_dense(pmc_graph& G, vector<int>& sol) {
 
     sol.resize(mc);
     for (int i = 0; i < C_max.size(); i++)  sol[i] = C_max[i];
+#if !defined(NDEBUG) || defined(PMC_VERBOSE)
     G.print_break();
+#endif
     return sol.size();
 }
 
@@ -248,7 +254,9 @@ void pmc_maxclique::branch_dense(
                         // ensure updated max is flushed
                         mc = C.size();
                         C_max = C;
+#if !defined(NDEBUG) || defined(PMC_VERBOSE)
                         print_mc_info(C,sec);
+#endif
                         if (mc >= param_ub) {
                             not_reached_ub = false;
 #if !defined(NDEBUG) || defined(PMC_VERBOSE)
